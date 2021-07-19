@@ -31,12 +31,13 @@ if 'questions.db' in os.listdir():
 else:
     con = sqlite3.connect('questions.db')
     cur = con.cursor()
-    #sqlite3 doesn't have date/time data types, last_modified is stored as int (unix time)
+    #sqlite3 doesn't have date/time data types, last_modified is stored as text (YYYY-MM-DD HH:MM:SS.SSS)
     cur.execute('''CREATE TABLE IF NOT EXISTS Questions
                    (volume INTEGER, maintopic INTEGER, subtopic INTEGER, question INTEGER,
-                    count INTEGER, last_modified INTEGER, notes TEXT,
+                    count INTEGER DEFAULT 1, last_modified TEXT DEFAULT datetime('now', 'localtime'),
+                    notes TEXT DEFAULT '',
                     PRIMARY KEY (volume, maintopic, subtopic, question));
-    ''')
+                ''')
     con.commit()
     
 
@@ -48,4 +49,41 @@ print('''           ____       _        ___                  __ _
           \____|\__,_|\__\___|\___/  \_/ \___|_|  |_| |_|\___/ \_/\_/  
                                                                        
 ''')
+
+exited = False
+while (not exited):
+
+    print("1. Mark important questions")
+    print("2. View marked questions")
+    print("3. Exit")
+    choice1 = int(input("Enter your choice:\t"))
+
+    #add error handling, range of inputs
+    if choice1 == 1:
+        inputs = db.insert_question(cur)
+        con.commit()
+        while (True):
+            print("1. Add a short note for the added question")
+            print("2. Go back")
+            choice11 = int(input("Enter your choice:\t"))
+            
+            if choice11 == 1:
+                db.insert_note(cur, inputs)
+                con.commit()
+                print("Note added")
+            if choice11 == 2:
+                break
+        
+
+    if choice1 == 2:
+        print("1. View a marked question") #add option to insert note
+        print("2. View all marked questions - volume wise")
+        print("3. View all marked questions - sort by latest")
+        print("4. View all marked questions - sort by count")
+        print("5. Go back")
+
+    if choice1 == 3:
+        con.close()
+        exit()
+
 
