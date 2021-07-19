@@ -34,7 +34,7 @@ else:
     #sqlite3 doesn't have date/time data types, last_modified is stored as text (YYYY-MM-DD HH:MM:SS.SSS)
     cur.execute('''CREATE TABLE IF NOT EXISTS Questions
                    (volume INTEGER, maintopic INTEGER, subtopic INTEGER, question INTEGER,
-                    count INTEGER DEFAULT 1, last_modified TEXT DEFAULT datetime('now', 'localtime'),
+                    count INTEGER DEFAULT 1, last_modified TEXT DEFAULT (datetime('now', 'localtime')),
                     notes TEXT DEFAULT '',
                     PRIMARY KEY (volume, maintopic, subtopic, question));
                 ''')
