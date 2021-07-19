@@ -53,7 +53,7 @@ print('''           ____       _        ___                  __ _
 exited = False
 while (not exited):
 
-    print("1. Mark important questions")
+    print("\n1. Mark important questions")
     print("2. View marked questions")
     print("3. Exit")
     choice1 = int(input("Enter your choice:\t"))
@@ -63,7 +63,7 @@ while (not exited):
         inputs = db.insert_question(cur)
         con.commit()
         while (True):
-            print("1. Add a short note for the added question")
+            print("\n1. Add a short note for the added question")
             print("2. Go back")
             choice11 = int(input("Enter your choice:\t"))
             
@@ -76,11 +76,28 @@ while (not exited):
         
 
     if choice1 == 2:
-        print("1. View a marked question") #add option to insert note
+        print("\n1. View a marked question") #add option to insert note
         print("2. View all marked questions - volume wise")
         print("3. View all marked questions - sort by latest")
         print("4. View all marked questions - sort by count")
         print("5. Go back")
+        choice21 = int(input("Enter your choice:\t"))
+
+        if choice21 == 1:
+            db.view_marked_question(cur)
+        
+        if choice21 == 2:
+            db.view_marked_questions_volume(cur)
+    
+        if choice21 == 3:
+            db.view_marked_questions_latest(cur)
+
+        if choice21 == 4:
+            db.view_marked_question_count(cur)
+
+        if choice21 == 5:
+            break
+
 
     if choice1 == 3:
         con.close()
