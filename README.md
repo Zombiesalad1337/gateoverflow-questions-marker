@@ -1,5 +1,5 @@
 # Gateoverflow Questions Marker
-A simple command line tool to note down importart questions while solving the Gateoverflow's previous year questions book.\
+A simple command line tool to note down important questions while solving the Gateoverflow's previous year questions book.\
 Features: 
 - Marking questions 
 - Increasing their importance (by remarking them) 
